@@ -123,6 +123,7 @@ class LibnameConan(ConanFile):
         tools.get("{0}/archive/v{1}.tar.gz".format(source_url, self.version))
         extracted_dir = self.name + "-" + self.version
 
+        tools.get("https://github.com/ocornut/imgui/archive/v1.69.tar.gz")
         # Rename to "source_subfolder" is a convention to simplify later steps
         os.rename(extracted_dir, self._source_subfolder)
 
@@ -148,7 +149,8 @@ class LibnameConan(ConanFile):
 
         add_cmake_option("BUILD_STATIC", not self.options.shared)
         add_cmake_option("BUILD_STATIC_PIC", not self.options.shared and self.options.get_safe("fPIC"))
-        # add_cmake_option("IMGUI_DIR", os.path.join(self.deps_cpp_info["imgui"].rootpath, 'include'))
+        imgui_path = os.path.join(os.getcwd(),"imgui-1.69")
+        add_cmake_option("IMGUI_DIR", imgui_path)
 
         cmake.configure(build_folder=self._build_subfolder)
 
