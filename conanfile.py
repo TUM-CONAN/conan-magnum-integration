@@ -115,7 +115,7 @@ class LibnameConan(ConanFile):
         if self.options.with_imgui:
             self.requires("imgui/1.66@camposs/stable")
         if self.options.with_ovr:
-            self.requires("openvr/1.5.17]@camposs/stable")
+            self.requires("openvr/1.5.17]@vendor/stable")
 
 
     def source(self):
