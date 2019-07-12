@@ -111,7 +111,7 @@ class LibnameConan(ConanFile):
         if self.options.with_eigen:
             self.requires("eigen/3.3.4@camposs/stable")
         if self.options.with_glm:
-            self.requires("glm/0.9.9@camposs/stable")
+            self.requires("glm/0.9.9.2@camposs/stable")
         if self.options.with_imgui:
             self.requires("imgui/1.66@camposs/stable")
         if self.options.with_ovr:
