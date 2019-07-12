@@ -107,15 +107,15 @@ class LibnameConan(ConanFile):
 
     def requirements(self):
         if self.options.with_bullet:
-            self.requires("bullet3/[>=2.88]@bincrafters/stable")
+            self.requires("bullet3/2.88@bincrafters/stable")
         if self.options.with_eigen:
-            self.requires("eigen/[>=3.3.4]@camposs/stable")
+            self.requires("eigen/3.3.4@camposs/stable")
         if self.options.with_glm:
-            self.requires("glm/[>=0.9.9]@camposs/stable")
+            self.requires("glm/0.9.9@camposs/stable")
         if self.options.with_imgui:
-            self.requires("imgui/[>=1.66]@camposs/stable")
+            self.requires("imgui/1.66@camposs/stable")
         if self.options.with_ovr:
-            self.requires("openvr/[>=1.0.17]@camposs/stable")
+            self.requires("openvr/1.5.17]@camposs/stable")
 
 
     def source(self):
