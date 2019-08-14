@@ -50,7 +50,7 @@ class LibnameConan(ConanFile):
     default_options = {
         "shared": False, 
         "fPIC": True,
-        "with_bullet": True,
+        "with_bullet": False,
         "with_eigen": True,
         "with_glm": True,
         "with_imgui": True,
