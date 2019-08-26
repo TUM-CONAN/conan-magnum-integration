@@ -64,7 +64,7 @@ class LibnameConan(ConanFile):
     # we could make this more modular byu adding options ..
     requires = (
         "magnum/2019.01@camposs/stable",
-        "nodejs_installer/[>=10.15.0]@bincrafters/stable",
+        "nodejs_installer/10.15.0@camposs/stable",
     )
 
     def system_package_architecture(self):
