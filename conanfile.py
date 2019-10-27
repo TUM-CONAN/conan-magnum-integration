@@ -22,7 +22,7 @@ def sort_libs(correct_order, libs, lib_suffix='', reverse_result=False):
 
 class LibnameConan(ConanFile):
     name = "magnum-integration"
-    version = "2019.01"
+    version = "2019.10"
     description =   "magnum-integration — Lightweight and modular C++11/C++14 \
                     graphics middleware for games and data visualization"
     # topics can get used for searches, GitHub topics, Bintray tags etc. Add here keywords about the library
@@ -63,7 +63,7 @@ class LibnameConan(ConanFile):
 
     # we could make this more modular byu adding options ..
     requires = (
-        "magnum/2019.01@camposs/stable",
+        "magnum/2019.10@camposs/stable",
         "nodejs_installer/[>=10.15.0]@bincrafters/stable",
     )
 
@@ -129,6 +129,25 @@ class LibnameConan(ConanFile):
         # tools.replace_in_file(os.path.join(self._source_subfolder, "src", "Magnum", "Platform", "CMakeLists.txt"),
         #     "target_link_libraries(MagnumGlfwApplication PUBLIC Magnum GLFW::GLFW)",
         #     "target_link_libraries(MagnumGlfwApplication PUBLIC Magnum CONAN_PKG::glfw)")
+
+        # Fix cmake find for Eigen3
+        tools.replace_in_file(os.path.join(self._source_subfolder, "src", "Magnum", "EigenIntegration", "CMakeLists.txt"),
+            "find_package(Eigen3 REQUIRED)",
+            "#find_package(Eigen3 REQUIRED)")
+
+        tools.replace_in_file(os.path.join(self._source_subfolder, "src", "Magnum", "EigenIntegration", "CMakeLists.txt"),
+            """if(NOT TARGET Eigen3::Eigen)
+    add_library(Eigen3::Eigen INTERFACE IMPORTED)
+    set_target_properties(Eigen3::Eigen PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${EIGEN3_INCLUDE_DIR})
+endif()""",
+            """#if(NOT TARGET Eigen3::Eigen)
+    #add_library(Eigen3::Eigen INTERFACE IMPORTED)
+    #set_target_properties(Eigen3::Eigen PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${EIGEN3_INCLUDE_DIR})
+#endif()""")
+
+        tools.replace_in_file(os.path.join(self._source_subfolder, "src", "Magnum", "EigenIntegration", "CMakeLists.txt"),
+            """    INTERFACE_LINK_LIBRARIES "Magnum::Magnum;Eigen3::Eigen")""",
+            """    INTERFACE_LINK_LIBRARIES "Magnum::Magnum;CONAN_PKG::eigen")""")
 
     def _configure_cmake(self):
         cmake = CMake(self)
