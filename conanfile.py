@@ -109,7 +109,7 @@ class LibnameConan(ConanFile):
         if self.options.with_bullet:
             self.requires("bullet3/2.88@bincrafters/stable")
         if self.options.with_eigen:
-            self.requires("eigen/3.3.4@camposs/stable")
+            self.requires("eigen/3.3.7@camposs/stable")
         if self.options.with_glm:
             self.requires("glm/0.9.9.2@camposs/stable")
         if self.options.with_imgui:
