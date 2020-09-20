@@ -22,7 +22,7 @@ def sort_libs(correct_order, libs, lib_suffix='', reverse_result=False):
 
 class LibnameConan(ConanFile):
     name = "magnum-integration"
-    version = "2019.01"
+    version = "2020.06"
     description =   "magnum-integration — Lightweight and modular C++11/C++14 \
                     graphics middleware for games and data visualization"
     # topics can get used for searches, GitHub topics, Bintray tags etc. Add here keywords about the library
@@ -63,7 +63,7 @@ class LibnameConan(ConanFile):
 
     # we could make this more modular byu adding options ..
     requires = (
-        "magnum/2019.01@camposs/stable",
+        "magnum/2020.06@camposs/stable",
         "nodejs_installer/10.15.0@camposs/stable",
     )
 
@@ -109,7 +109,7 @@ class LibnameConan(ConanFile):
         if self.options.with_bullet:
             self.requires("bullet3/2.88@bincrafters/stable")
         if self.options.with_eigen:
-            self.requires("eigen/3.3.4@camposs/stable")
+            self.requires("eigen/3.3.7@camposs/stable")
         if self.options.with_glm:
             self.requires("glm/0.9.9.2@camposs/stable")
         if self.options.with_imgui:
