@@ -174,11 +174,11 @@ class LibnameConan(ConanFile):
         if self.settings.os == "Windows":
             if self.settings.compiler == "msvc":
                 if not self.options.shared:
-                    self.cpp_info.libs.append("OpenGL32.lib")
+                    self.cpp_info.system_libs.append("OpenGL32.lib")
             else:
-                self.cpp_info.libs.append("opengl32")
+                self.cpp_info.system_libs.append("opengl32")
         else:
             if self.settings.os == "Macos":
                 self.cpp_info.exelinkflags.append("-framework OpenGL")
             elif not self.options.shared:
-                self.cpp_info.libs.append("GL")
+                self.cpp_info.system_libs.append("GL")
