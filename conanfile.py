@@ -134,9 +134,9 @@ class LibnameConan(ConanFile):
         add_cmake_option("BUILD_STATIC", not self.options.shared)
         add_cmake_option("BUILD_STATIC_PIC", not self.options.shared and self.options.get_safe("fPIC"))
         corrade_root = self.dependencies["corrade"].package_folder
-        tc.variables["Corrade_ROOT"] = corrade_root
+        tc.variables["Corrade_ROOT"] = corrade_root.replace('\\', '/') 
         magnum_root = self.dependencies["magnum"].package_folder
-        tc.variables["Magnum_ROOT"] = magnum_root
+        tc.variables["Magnum_ROOT"] = magnum_root.replace('\\', '/') 
 
         tc.generate()
 

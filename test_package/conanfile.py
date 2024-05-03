@@ -12,6 +12,7 @@ class TestPackageConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
 
     def requirements(self):
+        self.requires("magnum/2020.06@camposs/stable")
         self.requires(self.tested_reference_str)
 
     def layout(self):
@@ -20,12 +21,12 @@ class TestPackageConan(ConanFile):
     def generate(self):
         tc = CMakeToolchain(self)
         corrade_root = self.dependencies["corrade"].package_folder
-        tc.variables["Corrade_ROOT"] = corrade_root
+        tc.variables["Corrade_ROOT"] = corrade_root.replace('\\', '/') 
         magnum_root = self.dependencies["magnum"].package_folder
-        tc.variables["Magnum_ROOT"] = magnum_root
+        tc.variables["Magnum_ROOT"] = magnum_root.replace('\\', '/') 
         magnum_integration_root = self.dependencies["magnum-integration"].package_folder
-        tc.variables["MagnumIntegration_ROOT"] = magnum_integration_root
-        tc.variables["MAGNUMINTEGRATION_INCLUDE_DIR"] = self.dependencies["magnum-integration"].cpp_info.includedirs[0]
+        tc.variables["MagnumIntegration_ROOT"] = magnum_integration_root.replace('\\', '/') 
+        tc.variables["MAGNUMINTEGRATION_INCLUDE_DIR"] = self.dependencies["magnum-integration"].cpp_info.includedirs[0].replace('\\', '/') 
         tc.generate()
 
         deps = CMakeDeps(self)
