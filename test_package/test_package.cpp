@@ -1,14 +1,12 @@
 #include <cstdlib>
 
-#include <Magnum/Primitives/Icosphere.h>
-#include <Magnum/Trade/MeshData3D.h>
-
-#include <Corrade/Utility/Debug.h>
+#include <Eigen/Core>
 #include <Magnum/EigenIntegration/Integration.h>
+#include <Magnum/Math/Vector3.h>
+
 int main() {
-    const Magnum::Trade::MeshData3D sphere = Magnum::Primitives::icosphereSolid(4);
+    const Eigen::Vector3f eigen{1.0f, 2.0f, 3.0f};
+    const Magnum::Vector3 magnum{eigen};
 
-    Corrade::Utility::Debug() << "Success";
-
-    return EXIT_SUCCESS;
+    return magnum == Magnum::Vector3{1.0f, 2.0f, 3.0f} ? EXIT_SUCCESS : EXIT_FAILURE;
 }

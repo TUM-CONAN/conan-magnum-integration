@@ -11,17 +11,18 @@ The packages generated with this **conanfile** can be found on [CampAR](https://
 
 ### Basic setup
 
-    $ conan install magnum-integration/2019.01@camposs/stable
+    $ conan install --requires=magnum-integration/2026.dev@camposs/stable
 
 ### Project setup
 
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 
     [requires]
-    magnum-integration/2019.01@camposs/stable
+    magnum-integration/2026.dev@camposs/stable
 
     [generators]
-    cmake
+    CMakeDeps
+    CMakeToolchain
 
 Complete the installation of requirements for your project running:
 
@@ -34,13 +35,24 @@ Note: It is recommended that you run conan install from a build directory and no
 
 The following command both runs all the steps of the conan file, and publishes the package to the local system cache.  This includes downloading dependencies from "build_requires" and "requires" , and then running the build() method.
 
-    $ conan create . camposs/stable
+    $ conan create . --user=camposs --channel=stable
 
 
 ### Available Options
-| Option        | Default | Possible Values  |
-| ------------- |:----------------- |:------------:|
-| with_any...   | False |  [True, False] |
+| Option | Default | Notes |
+| --- | ---: | --- |
+| shared | False | Builds shared libraries where upstream supports them |
+| fPIC | True | Removed on Windows |
+| build_deprecated | False | Propagated to Corrade and Magnum |
+| build_tests | False | Upstream unit tests |
+| build_gl_tests | False | Requires build_tests=True |
+| with_bullet | False | Uses bullet3/3.25 |
+| with_dart | False | Exposed for upstream parity, currently rejected because no DART Conan package is available |
+| with_eigen | True | Uses eigen/5.0.1 |
+| with_glm | True | Uses glm/1.0.1 |
+| with_imgui | True | Uses imgui/1.92.8 |
+| with_ovr | False | Windows-only, uses openvr/1.16.8 |
+| with_yoga | False | Exposed for upstream parity, currently rejected until a magnum-extras package provides MagnumExtras::Ui |
 
 
 ## Add Remote
