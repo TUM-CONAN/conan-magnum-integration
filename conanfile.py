@@ -122,7 +122,7 @@ class MagnumIntegrationConan(ConanFile):
         if self.options.with_bullet and not self.options.use_emscripten_ports_bullet:
             self.requires("bullet3/3.25")
         if self.options.with_eigen:
-            self.requires("eigen/5.0.1", transitive_headers=True)
+            self.requires("eigen/3.4.0", transitive_headers=True)
         if self.options.with_glm:
             self.requires("glm/1.0.1", transitive_headers=True)
         if self.options.with_imgui:
