@@ -238,10 +238,17 @@ class MagnumIntegrationConan(ConanFile):
         # find_package(MagnumIntegration) and consumers' find_dependency() resolve it
         # (component targets like MagnumIntegration::ImGui are declared below).
         self.cpp_info.set_property("cmake_file_name", "MagnumIntegration")
-        self.cpp_info.builddirs = [
+        # NOTE: this recipe declares cpp_info.components below. When a package uses
+        # components, Conan aggregates builddirs *per component* and ignores the
+        # root-level cpp_info.builddirs for CMAKE_PREFIX_PATH/MODULE_PATH. The root
+        # builddirs is kept here for completeness, but the same dirs MUST also be set
+        # on each component (see the loop below) or find_package(MagnumIntegration)
+        # won't find share/cmake/MagnumIntegration/MagnumIntegrationConfig.cmake.
+        cmake_builddirs = [
             os.path.join("share", "cmake", "MagnumIntegration"),
             os.path.join("share", "cmake", "MagnumIntegration", "dependencies"),
         ]
+        self.cpp_info.builddirs = cmake_builddirs
         self.cpp_info.includedirs = ["include"]
         self.cpp_info.libs = _ordered_libs(collect_libs(self), self.settings.build_type)
 
@@ -260,6 +267,10 @@ class MagnumIntegrationConan(ConanFile):
             component = self.cpp_info.components[option]
             component.set_property("cmake_target_name", target)
             component.includedirs = ["include"]
+            # Required (see note above): root builddirs is ignored when components
+            # exist, so the native-config dir must be exposed via the component for
+            # consumers' find_package(MagnumIntegration) to locate it.
+            component.builddirs = cmake_builddirs
             if lib:
                 suffix = "-d" if self.settings.build_type == "Debug" else ""
                 component.libs = [f"{lib}{suffix}"]
