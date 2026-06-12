@@ -234,6 +234,10 @@ class MagnumIntegrationConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.set_property("cmake_find_mode", "none")
+        # Match the CamelCase native config (MagnumIntegrationConfig.cmake) so
+        # find_package(MagnumIntegration) and consumers' find_dependency() resolve it
+        # (component targets like MagnumIntegration::ImGui are declared below).
+        self.cpp_info.set_property("cmake_file_name", "MagnumIntegration")
         self.cpp_info.builddirs = [
             os.path.join("share", "cmake", "MagnumIntegration"),
             os.path.join("share", "cmake", "MagnumIntegration", "dependencies"),
